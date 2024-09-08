@@ -43,9 +43,54 @@ class Result {
      */
 
     public static int stringSimilarity(String s) {
-        // Write your code here
 
-        return 0;
+        int similarityCount = 0;
+        int stringLength = s.length();
+        String searchString = s;
+
+        if ( areAllCharactersSame(s) ){
+
+            similarityCount = ( stringLength * ( stringLength+1 ) ) / 2;
+
+        }
+        else{
+
+            while (searchString.length() > 0) {
+
+                int indexOfString = s.indexOf(searchString);
+                while (indexOfString != -1) {
+                    similarityCount++;
+                    indexOfString = s.indexOf(searchString, indexOfString + 1);
+                }
+
+                searchString = searchString.substring(0, --stringLength);
+            }
+
+        }
+
+        return similarityCount;
+    }
+
+
+    public static boolean areAllCharactersSame(String str) {
+
+        if (str == null || str.length() == 0) {
+            return false;
+        }
+
+        if (str.length() == 1) {
+            return true;
+        }
+
+        char firstChar = str.charAt(0);
+
+        for (int i = 1; i < str.length(); i++) {
+            if (str.charAt(i) != firstChar) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
